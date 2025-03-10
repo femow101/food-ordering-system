@@ -20,6 +20,7 @@
     <!--  Default packaging is JAR, for the MAIN project, It makes sense to use POM instead of JAR and inside the module, use JAR  -->
     <!--  POM packaging creates a container for submodules with jar packaging  -->
     <packaging>pom</packaging>
+
     <modules>
         <module>order-service</module>
     </modules>
@@ -28,10 +29,38 @@
         <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
     </properties>
 
-    <dependencyManagement></dependencyManagement>
+    <!--  Unifies the versions for dependencies in the child modules  -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <artifactId>order-domain-core</artifactId>
+                <groupId>com.femow</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>order-application-service</artifactId>
+                <groupId>com.femow</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.femow</groupId>
+                <artifactId>order-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.femow</groupId>
+                <artifactId>order-dataaccess</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.femow</groupId>
+                <artifactId>order-messaging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
-
     </dependencies>
 
     <build>
