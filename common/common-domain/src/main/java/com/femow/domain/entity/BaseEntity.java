@@ -1,4 +1,4 @@
-package com.femow.domain;
+package com.femow.domain.entity;
 
 import java.util.Objects;
 
