@@ -2,9 +2,12 @@ package com.femow.order.service.domain.entity;
 
 import com.femow.domain.entity.AggregateRoot;
 import com.femow.domain.valueobject.*;
+import com.femow.order.service.domain.exception.OrderDomainException;
+import com.femow.order.service.domain.valueobject.OrderItemId;
 import com.femow.order.service.domain.valueobject.TrackingId;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Order extends AggregateRoot<OrderId> {
 
@@ -17,6 +20,57 @@ public class Order extends AggregateRoot<OrderId> {
     private TrackingId trackingId;
     private OrderStatus orderStatus;
     private List<String> failureMessages;
+
+    public void validateOrder() {
+        validateInitialOrder();
+        validateTotalPrice();
+        validateItemsPrice();
+    }
+
+    private void validateInitialOrder() {
+        if (this.orderStatus != null || super.getId() != null) {
+            throw new OrderDomainException("Order is not in correct state for initialization!");
+        }
+    }
+
+    private void validateTotalPrice() {
+        if (this.price != null || !this.price.isGreaterThanZero()) {
+            throw new OrderDomainException("Total price must be greater than zero!");
+        }
+    }
+
+    private void validateItemsPrice() {
+        Money orderItemsTotal = items.stream().map(orderItem -> {
+            validateItemPrice(orderItem);
+            return orderItem.getSubTotal();
+        }).reduce(Money.ZERO, Money::add);
+
+        if (this.price.equals(orderItemsTotal)) {
+            throw new OrderDomainException("Total price: " + this.price.getAmount()
+            + " is not equal to Order items total: " + orderItemsTotal.getAmount() + "!");
+        }
+    }
+
+    private void validateItemPrice(OrderItem orderItem) {
+        if (!orderItem.isPriceValid()) {
+            throw new OrderDomainException(("order item price: " + orderItem.getPrice().getAmount()
+                + " is not valid for product: " + orderItem.getProduct().getId().getValue()));
+        }
+    }
+
+    public void initializeOrder() {
+        super.setId(new OrderId(UUID.randomUUID()));
+        this.trackingId = new TrackingId(UUID.randomUUID());
+        orderStatus = OrderStatus.PENDING;
+        initializeOrderItems();
+    }
+
+    private void initializeOrderItems() {
+        long itemId = 1;
+        for (OrderItem orderItem : items) {
+            orderItem.initializeOrderItem(super.getId(), new OrderItemId(itemId++));
+        }
+    }
 
     private Order(Builder builder) {
         super.setId(builder.orderId);
