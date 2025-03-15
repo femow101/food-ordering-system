@@ -4,6 +4,7 @@ import com.femow.domain.entity.AggregateRoot;
 import com.femow.domain.valueobject.*;
 import com.femow.order.service.domain.exception.OrderDomainException;
 import com.femow.order.service.domain.valueobject.OrderItemId;
+import com.femow.order.service.domain.valueobject.StreetAddress;
 import com.femow.order.service.domain.valueobject.TrackingId;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class Order extends AggregateRoot<OrderId> {
 
     private final CustomerId customerId;
     private final RestaurantId restaurantId;
-    private final RestaurantId deliveryAddress;
+    private final StreetAddress deliveryAddress;
     private final Money price;
     private final List<OrderItem> items;
 
@@ -139,7 +140,7 @@ public class Order extends AggregateRoot<OrderId> {
         return restaurantId;
     }
 
-    public RestaurantId getDeliveryAddress() {
+    public StreetAddress getDeliveryAddress() {
         return deliveryAddress;
     }
 
@@ -167,7 +168,7 @@ public class Order extends AggregateRoot<OrderId> {
         private OrderId orderId;
         private CustomerId customerId;
         private RestaurantId restaurantId;
-        private RestaurantId deliveryAddress;
+        private StreetAddress deliveryAddress;
         private Money price;
         private List<OrderItem> items;
         private TrackingId trackingId;
@@ -196,7 +197,7 @@ public class Order extends AggregateRoot<OrderId> {
             return this;
         }
 
-        public Builder deliveryAddress(RestaurantId val) {
+        public Builder deliveryAddress(StreetAddress val) {
             deliveryAddress = val;
             return this;
         }
