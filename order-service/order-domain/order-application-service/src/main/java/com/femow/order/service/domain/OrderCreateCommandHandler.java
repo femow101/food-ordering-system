@@ -2,7 +2,6 @@ package com.femow.order.service.domain;
 
 import com.femow.order.service.domain.dto.create.CreateOrderCommand;
 import com.femow.order.service.domain.dto.create.CreateOrderResponse;
-import com.femow.order.service.domain.dto.create.OrderItem;
 import com.femow.order.service.domain.entity.Customer;
 import com.femow.order.service.domain.entity.Order;
 import com.femow.order.service.domain.entity.Restaurant;
@@ -27,11 +26,10 @@ public class OrderCreateCommandHandler {
 
     private final OrderDomainService orderDomainService;
     private final OrderRepository orderRepository;
-
-    private final CustomerRepository customerRepository;
-    private final RestaurantRepository restaurantRepository;
-
     private final OrderDataMapper orderDataMapper;
+
+    private final RestaurantRepository restaurantRepository;
+    private final CustomerRepository customerRepository;
 
     @Transactional
     public CreateOrderResponse createOrder(CreateOrderCommand createOrderCommand) {
@@ -40,9 +38,9 @@ public class OrderCreateCommandHandler {
         Order order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
         OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant);
         Order orderResult = saveOrder(order);
-
         log.info("Order is created with id: {}", orderResult.getId().getValue());
-        return orderDataMapper.orderToCreateOrderResponse(orderResult);
+
+        return orderDataMapper.orderToCreateOrderResponse(orderResult, "Order Created Successfully");
     }
 
     private Restaurant checkRestaurant(CreateOrderCommand createOrderCommand) {
