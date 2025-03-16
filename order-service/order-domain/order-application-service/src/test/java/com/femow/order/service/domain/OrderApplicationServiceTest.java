@@ -2,6 +2,7 @@ package com.femow.order.service.domain;
 
 import com.femow.domain.valueobject.*;
 import com.femow.order.service.domain.dto.create.CreateOrderCommand;
+import com.femow.order.service.domain.dto.create.CreateOrderResponse;
 import com.femow.order.service.domain.dto.create.OrderAddress;
 import com.femow.order.service.domain.dto.create.OrderItem;
 import com.femow.order.service.domain.entity.Customer;
@@ -13,9 +14,10 @@ import com.femow.order.service.domain.ports.input.service.OrderApplicationServic
 import com.femow.order.service.domain.ports.output.repository.CustomerRepository;
 import com.femow.order.service.domain.ports.output.repository.OrderRepository;
 import com.femow.order.service.domain.ports.output.repository.RestaurantRepository;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
@@ -23,27 +25,33 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(classes = OrderTestConfiguration.class)
-@RequiredArgsConstructor
 public class OrderApplicationServiceTest {
 
+    @Autowired
     private OrderApplicationService orderApplicationService;
+    @Autowired
     private OrderDataMapper orderDataMapper;
+    @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
     private RestaurantRepository restaurantRepository;
+    @Autowired
     private CustomerRepository customerRepository;
 
     private CreateOrderCommand createOrderCommand;
     private CreateOrderCommand createOrderCommandWrongPrice;
     private CreateOrderCommand createOrderCommandWrongProductPrice;
-    private final UUID CUSTOMER_ID = UUID.fromString("5a62e224-4575-41a0-b17d-d6e67de94abe");
-    private final UUID RESTAURANT_ID = UUID.fromString("5a62e224-4575-41a0-b17d-d6e67de94abe");
-    private final UUID PRODUCT_ID = UUID.fromString("5a62e224-4575-41a0-b17d-d6e67de94abe");
+    private final UUID CUSTOMER_ID = UUID.fromString("5a62e224-4575-41a0-b17d-d6e67de91abe");
+    private final UUID RESTAURANT_ID = UUID.fromString("5a62e224-4575-41a0-b17d-d6e67de92abe");
+    private final UUID PRODUCT_ID = UUID.fromString("5a62e224-4575-41a0-b17d-d6e67de93abe");
     private final UUID ORDER_ID = UUID.fromString("5a62e224-4575-41a0-b17d-d6e67de94abe");
     private final BigDecimal PRICE = new BigDecimal("200.00");
 
@@ -119,7 +127,7 @@ public class OrderApplicationServiceTest {
                 .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
                 .products(List.of(
                         new Product(new ProductId(PRODUCT_ID), "product-1", new Money(new BigDecimal("50.00"))),
-                        new Product(new ProductId(PRODUCT_ID), "product-1", new Money(new BigDecimal("50.00")))))
+                        new Product(new ProductId(PRODUCT_ID), "product-2", new Money(new BigDecimal("50.00")))))
                 .active(true)
                 .build();
 
@@ -127,8 +135,16 @@ public class OrderApplicationServiceTest {
         order.setId(new OrderId(ORDER_ID));
 
         when(customerRepository.findCustomer(CUSTOMER_ID)).thenReturn(Optional.of(customer));
-        when(restaurantRepository.findRestaurantInformation(orderDataMapper.createOrderCommandToRestaurant(createOrderCommandWrongPrice)))
+        when(restaurantRepository.findRestaurantInformation(orderDataMapper.createOrderCommandToRestaurant(createOrderCommand)))
             .thenReturn(Optional.of(restaurantResponse));
         when(orderRepository.save(any(Order.class))).thenReturn(order);
+    }
+
+    @Test
+    public void testeCreateOrder() {
+        CreateOrderResponse createOrderResponse = orderApplicationService.createOrder(createOrderCommand);
+        assertEquals(OrderStatus.PENDING, createOrderResponse.getOrderStatus());
+        assertEquals("Order Created Successfully", createOrderResponse.getMessage());
+        assertNotNull(createOrderResponse.getOrderTrackingId());
     }
 }

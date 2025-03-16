@@ -78,7 +78,7 @@ public class Order extends AggregateRoot<OrderId> {
     }
 
     private void validateTotalPrice() {
-        if (this.price != null || !this.price.isGreaterThanZero()) {
+        if (this.price == null || !this.price.isGreaterThanZero()) {
             throw new OrderDomainException("Total price must be greater than zero!");
         }
     }
@@ -89,7 +89,7 @@ public class Order extends AggregateRoot<OrderId> {
             return orderItem.getSubTotal();
         }).reduce(Money.ZERO, Money::add);
 
-        if (this.price.equals(orderItemsTotal)) {
+        if (!this.price.equals(orderItemsTotal)) {
             throw new OrderDomainException("Total price: " + this.price.getAmount()
             + " is not equal to Order items total: " + orderItemsTotal.getAmount() + "!");
         }
