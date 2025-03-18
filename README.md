@@ -1,17 +1,17 @@
 Food Ordering System
 
 Tags:
-Spring Boot
-Microservices
-Clea Architecture
-Hexagonal Architecture
-DDD
-SAGA
-Outbox
-CQRS
-Kafka
-Kubernetes
-GKE
+- Spring Boot
+- Microservices
+- Clean Architecture
+- Hexagonal Architecture
+- DDD
+- SAGA
+- Outbox
+- CQRS
+- Kafka
+- Kubernetes
+- GKE
 
 
 ![dependencies graph](dependency-graph.png)
