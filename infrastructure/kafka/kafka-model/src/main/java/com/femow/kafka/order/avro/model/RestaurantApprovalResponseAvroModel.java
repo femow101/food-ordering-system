@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 5064519102258576853L;
+  private static final long serialVersionUID = -3452380200326544856L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RestaurantApprovalResponseAvroModel\",\"namespace\":\"com.femow.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"sagaId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"restaurantId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"orderId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"createdAt\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}},{\"name\":\"orderApprovalStatus\",\"type\":{\"type\":\"enum\",\"name\":\"OrderApprovalStatus\",\"symbols\":[\"APPROVED\",\"REJECTED\"]}},{\"name\":\"failureMessages\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RestaurantApprovalResponseAvroModel\",\"namespace\":\"com.femow.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"sagaId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"restaurantId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"orderId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"createdAt\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}},{\"name\":\"orderApprovalStatus\",\"type\":{\"type\":\"enum\",\"name\":\"OrderApprovalStatus\",\"symbols\":[\"APPROVED\",\"REJECTED\"]}},{\"name\":\"failureMessages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -82,7 +82,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
   private java.lang.String orderId;
   private java.time.Instant createdAt;
   private com.femow.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus;
-  private java.lang.String failureMessages;
+  private java.util.List<java.lang.String> failureMessages;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -101,7 +101,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * @param orderApprovalStatus The new value for orderApprovalStatus
    * @param failureMessages The new value for failureMessages
    */
-  public RestaurantApprovalResponseAvroModel(java.lang.String id, java.lang.String sagaId, java.lang.String restaurantId, java.lang.String orderId, java.time.Instant createdAt, com.femow.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus, java.lang.String failureMessages) {
+  public RestaurantApprovalResponseAvroModel(java.lang.String id, java.lang.String sagaId, java.lang.String restaurantId, java.lang.String orderId, java.time.Instant createdAt, com.femow.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus, java.util.List<java.lang.String> failureMessages) {
     this.id = id;
     this.sagaId = sagaId;
     this.restaurantId = restaurantId;
@@ -154,7 +154,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     case 3: orderId = value$ != null ? value$.toString() : null; break;
     case 4: createdAt = (java.time.Instant)value$; break;
     case 5: orderApprovalStatus = (com.femow.kafka.order.avro.model.OrderApprovalStatus)value$; break;
-    case 6: failureMessages = value$ != null ? value$.toString() : null; break;
+    case 6: failureMessages = (java.util.List<java.lang.String>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -265,7 +265,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * Gets the value of the 'failureMessages' field.
    * @return The value of the 'failureMessages' field.
    */
-  public java.lang.String getFailureMessages() {
+  public java.util.List<java.lang.String> getFailureMessages() {
     return failureMessages;
   }
 
@@ -274,7 +274,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * Sets the value of the 'failureMessages' field.
    * @param value the value to set.
    */
-  public void setFailureMessages(java.lang.String value) {
+  public void setFailureMessages(java.util.List<java.lang.String> value) {
     this.failureMessages = value;
   }
 
@@ -325,7 +325,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     private java.lang.String orderId;
     private java.time.Instant createdAt;
     private com.femow.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus;
-    private java.lang.String failureMessages;
+    private java.util.List<java.lang.String> failureMessages;
 
     /** Creates a new Builder */
     private Builder() {
@@ -647,7 +647,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * Gets the value of the 'failureMessages' field.
       * @return The value.
       */
-    public java.lang.String getFailureMessages() {
+    public java.util.List<java.lang.String> getFailureMessages() {
       return failureMessages;
     }
 
@@ -657,7 +657,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * @param value The value of 'failureMessages'.
       * @return This builder.
       */
-    public com.femow.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setFailureMessages(java.lang.String value) {
+    public com.femow.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setFailureMessages(java.util.List<java.lang.String> value) {
       validate(fields()[6], value);
       this.failureMessages = value;
       fieldSetFlags()[6] = true;
@@ -694,7 +694,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
         record.orderId = fieldSetFlags()[3] ? this.orderId : (java.lang.String) defaultValue(fields()[3]);
         record.createdAt = fieldSetFlags()[4] ? this.createdAt : (java.time.Instant) defaultValue(fields()[4]);
         record.orderApprovalStatus = fieldSetFlags()[5] ? this.orderApprovalStatus : (com.femow.kafka.order.avro.model.OrderApprovalStatus) defaultValue(fields()[5]);
-        record.failureMessages = fieldSetFlags()[6] ? this.failureMessages : (java.lang.String) defaultValue(fields()[6]);
+        record.failureMessages = fieldSetFlags()[6] ? this.failureMessages : (java.util.List<java.lang.String>) defaultValue(fields()[6]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;

@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 368696114561345690L;
+  private static final long serialVersionUID = 8042771585490491589L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"PaymentResponseAvroModel\",\"namespace\":\"com.femow.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"sagaId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"paymentId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"customerId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"orderId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"price\",\"type\":{\"type\":\"bytes\",\"logicalType\":\"decimal\",\"precision\":10,\"scale\":2}},{\"name\":\"createdAt\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}},{\"name\":\"paymentStatus\",\"type\":{\"type\":\"enum\",\"name\":\"PaymentStatus\",\"symbols\":[\"COMPLETED\",\"CANCELLED\",\"FAILED\"]}},{\"name\":\"failureMessages\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"PaymentResponseAvroModel\",\"namespace\":\"com.femow.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"sagaId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"paymentId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"customerId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"orderId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"price\",\"type\":{\"type\":\"bytes\",\"logicalType\":\"decimal\",\"precision\":10,\"scale\":2}},{\"name\":\"createdAt\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}},{\"name\":\"paymentStatus\",\"type\":{\"type\":\"enum\",\"name\":\"PaymentStatus\",\"symbols\":[\"COMPLETED\",\"CANCELLED\",\"FAILED\"]}},{\"name\":\"failureMessages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -85,7 +85,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
   private java.math.BigDecimal price;
   private java.time.Instant createdAt;
   private com.femow.kafka.order.avro.model.PaymentStatus paymentStatus;
-  private java.lang.String failureMessages;
+  private java.util.List<java.lang.String> failureMessages;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -106,7 +106,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
    * @param paymentStatus The new value for paymentStatus
    * @param failureMessages The new value for failureMessages
    */
-  public PaymentResponseAvroModel(java.lang.String id, java.lang.String sagaId, java.lang.String paymentId, java.lang.String customerId, java.lang.String orderId, java.math.BigDecimal price, java.time.Instant createdAt, com.femow.kafka.order.avro.model.PaymentStatus paymentStatus, java.lang.String failureMessages) {
+  public PaymentResponseAvroModel(java.lang.String id, java.lang.String sagaId, java.lang.String paymentId, java.lang.String customerId, java.lang.String orderId, java.math.BigDecimal price, java.time.Instant createdAt, com.femow.kafka.order.avro.model.PaymentStatus paymentStatus, java.util.List<java.lang.String> failureMessages) {
     this.id = id;
     this.sagaId = sagaId;
     this.paymentId = paymentId;
@@ -167,7 +167,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
     case 5: price = (java.math.BigDecimal)value$; break;
     case 6: createdAt = (java.time.Instant)value$; break;
     case 7: paymentStatus = (com.femow.kafka.order.avro.model.PaymentStatus)value$; break;
-    case 8: failureMessages = value$ != null ? value$.toString() : null; break;
+    case 8: failureMessages = (java.util.List<java.lang.String>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -312,7 +312,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
    * Gets the value of the 'failureMessages' field.
    * @return The value of the 'failureMessages' field.
    */
-  public java.lang.String getFailureMessages() {
+  public java.util.List<java.lang.String> getFailureMessages() {
     return failureMessages;
   }
 
@@ -321,7 +321,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
    * Sets the value of the 'failureMessages' field.
    * @param value the value to set.
    */
-  public void setFailureMessages(java.lang.String value) {
+  public void setFailureMessages(java.util.List<java.lang.String> value) {
     this.failureMessages = value;
   }
 
@@ -374,7 +374,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
     private java.math.BigDecimal price;
     private java.time.Instant createdAt;
     private com.femow.kafka.order.avro.model.PaymentStatus paymentStatus;
-    private java.lang.String failureMessages;
+    private java.util.List<java.lang.String> failureMessages;
 
     /** Creates a new Builder */
     private Builder() {
@@ -792,7 +792,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
       * Gets the value of the 'failureMessages' field.
       * @return The value.
       */
-    public java.lang.String getFailureMessages() {
+    public java.util.List<java.lang.String> getFailureMessages() {
       return failureMessages;
     }
 
@@ -802,7 +802,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
       * @param value The value of 'failureMessages'.
       * @return This builder.
       */
-    public com.femow.kafka.order.avro.model.PaymentResponseAvroModel.Builder setFailureMessages(java.lang.String value) {
+    public com.femow.kafka.order.avro.model.PaymentResponseAvroModel.Builder setFailureMessages(java.util.List<java.lang.String> value) {
       validate(fields()[8], value);
       this.failureMessages = value;
       fieldSetFlags()[8] = true;
@@ -841,7 +841,7 @@ public class PaymentResponseAvroModel extends org.apache.avro.specific.SpecificR
         record.price = fieldSetFlags()[5] ? this.price : (java.math.BigDecimal) defaultValue(fields()[5]);
         record.createdAt = fieldSetFlags()[6] ? this.createdAt : (java.time.Instant) defaultValue(fields()[6]);
         record.paymentStatus = fieldSetFlags()[7] ? this.paymentStatus : (com.femow.kafka.order.avro.model.PaymentStatus) defaultValue(fields()[7]);
-        record.failureMessages = fieldSetFlags()[8] ? this.failureMessages : (java.lang.String) defaultValue(fields()[8]);
+        record.failureMessages = fieldSetFlags()[8] ? this.failureMessages : (java.util.List<java.lang.String>) defaultValue(fields()[8]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
