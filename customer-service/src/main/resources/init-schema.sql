@@ -2,7 +2,7 @@ DROP SCHEMA IF EXISTS customer CASCADE;
 
 CREATE SCHEMA customer;
 
-CREATE EXTENTION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE customer.customers (
     id uuid NOT NULL,
@@ -34,6 +34,7 @@ AS '
 BEGIN
     refresh materialized VIEW customer.order_customer_m_view;
     return null;
+END;
 ' LANGUAGE plpgsql;
 
 DROP trigger IF EXISTS refresh_order_customer_m_view ON customer.customers;
